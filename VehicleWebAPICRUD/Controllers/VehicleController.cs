@@ -31,10 +31,10 @@ namespace VehicleWebAPICRUD.Controllers
             return Ok(data);
         }
 
-        [HttpGet("Get-ByPage")]
-        public async Task<ActionResult> GetPage(int pageNumber, int pageSize)
+        [HttpGet("Get-ByText&ByPage")]
+        public async Task<ActionResult> GetPage(string? searchText, int pageNumber, int pageSize)
         {
-            var data = await _context.GetPage(pageNumber, pageSize);
+            var data = await _context.GetPage(searchText,pageNumber, pageSize);
             return Ok(data);    
         }
 
@@ -58,6 +58,16 @@ namespace VehicleWebAPICRUD.Controllers
             await _context.DeleteDetail(id);
             return Ok();
         }
+
+        [HttpGet("Get-vehicles")]
+        public async Task<ActionResult> GetVehicles (string vehicle_seat, decimal minPrice,decimal maxPrice)
+        {
+            var data = await _context.GetAllVehicle();
+            return Ok(data);
+        }
+
+        
+
 
     }
 }

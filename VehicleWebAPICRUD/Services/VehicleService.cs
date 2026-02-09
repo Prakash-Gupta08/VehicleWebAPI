@@ -6,6 +6,7 @@ using VehicleWebAPICRUD.Interfaces;
 using VehicleWebAPICRUD.Models;
 using VehicleWebAPICRUD.PaginationResult;
 using VehicleWebAPICRUD.VehicleDBContext;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace VehicleWebAPICRUD.Services
@@ -60,8 +61,13 @@ namespace VehicleWebAPICRUD.Services
         }
 
 
-        public async Task<ApiResponse> GetPage(int pageNumber, int pageSize)
+        public async Task<ApiResponse> GetPage(string? searchText, int pageNumber, int pageSize)
         {
+            var query =  _context.vehicle.AsQueryable();
+            if(!string.IsNullOrEmpty(searchText))
+            {
+                query = query.Where(s => s.vehicle_name.Contains(searchText));
+            }
             var totalRecord = await _context.vehicle.CountAsync();
             var res = await _context.vehicle.OrderBy(s => s.vehicle_id)
                 .Skip((pageNumber - 1) * pageSize)
@@ -163,6 +169,28 @@ namespace VehicleWebAPICRUD.Services
               
             return apiResponse;
             
+        }
+
+        public async Task<ApiResponse> GetVehicles(string vehicle_seat, decimal minPrice, decimal maxPrice)
+        {
+            var query = _context.vehicle.AsQueryable();
+            var data = await _context.vehicle.Where(x => x.vehicle_seat == vehicle_seat).ToListAsync();
+
+            if (!string.IsNullOrEmpty(vehicle_seat))
+            {
+                query = query.Where(x => x.vehicle_seat== vehicle_seat);
+                apiResponse.IsSuccess = true;
+                apiResponse.Data = data;
+            }
+            if(minPrice>0)
+            {
+                query = query.Where(x => x.vehicle_price >= minPrice);
+                apiResponse.IsSuccess = true;
+                apiResponse.Message = "Min-Price";
+                apiResponse.Data = data;
+                
+            }
+            return apiResponse;
         }
     }
 }

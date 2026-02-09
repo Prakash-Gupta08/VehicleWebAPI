@@ -10,10 +10,15 @@ namespace VehicleWebAPICRUD.Interfaces
     {
         Task<ApiResponse> GetAllVehicle();
         Task<ApiResponse> GetVehicleById(int id);
-        Task<ApiResponse> GetPage(int pageNumber, int pageSize);
+        Task<ApiResponse> GetPage(string? searchText, int pageNumber, int pageSize);
         Task<ApiResponse> CreateDetail(vehicle std);
         Task<ApiResponse> UpdateDetail(UpdateRequest res);
         Task<ApiResponse> DeleteDetail(int id);
+        Task<ApiResponse> GetVehicles
+            (
+            string vehicle_seat, decimal minPrice,
+            decimal maxPrice
+            );
 
     }
 }
