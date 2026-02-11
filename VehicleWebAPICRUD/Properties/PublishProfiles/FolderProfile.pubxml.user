@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- https://go.microsoft.com/fwlink/?LinkID=208121. -->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\publish_folder\web_api</_PublishTargetUrl>
+    <History>True|2026-02-10T13:20:27.7702240Z||;True|2026-02-10T18:43:12.5949027+05:30||;False|2026-02-10T18:42:09.9894578+05:30||;False|2026-02-10T18:41:40.6270577+05:30||;True|2026-02-10T16:19:32.8851391+05:30||;True|2026-02-10T12:27:27.1868384+05:30||;True|2026-02-10T12:25:12.1911295+05:30||;True|2026-02-10T12:02:59.3055356+05:30||;True|2026-02-10T11:53:17.5765687+05:30||;True|2026-02-10T11:11:18.3775724+05:30||;True|2026-02-10T11:06:42.6147988+05:30||;</History>
+    <LastFailureDetails />
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="MysqlConn">
+      <Value>Server=%28localdb%29\MSSQLLocalDB%3bDatabase=VehicleDB%3bIntegrated Security=True%3bTrustServerCertificate=Yes%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

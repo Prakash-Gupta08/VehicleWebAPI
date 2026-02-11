@@ -1,10 +1,7 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using VehicleWebAPICRUD.Interfaces;
 using VehicleWebAPICRUD.Services;
 using VehicleWebAPICRUD.VehicleDBContext;
-
-
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// DbContext (IMPORTANT: configure connection string)
+// DbContext
 builder.Services.AddDbContext<db_context>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("SqlServerConn")
@@ -25,17 +22,19 @@ builder.Services.AddScoped<IVehicleService, VehicleService>();
 
 var app = builder.Build();
 
-// Enable Swagger
+// Swagger (enable only when explicitly allowed)
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Student API v1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Vehicle API v1");
     });
 }
 
-app.UseHttpsRedirection();
+// ❌ REMOVE this for now (IMPORTANT)
+// app.UseHttpsRedirection();
+
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
